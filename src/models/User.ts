@@ -5,12 +5,16 @@ export interface User {
   password: string;
   passwordConfirmation: string;
 }
-const UserSchema = new Schema<User>({
+export interface UserDTO{
+  email:string;
+  name:string;
+  password:string;
+}
+const UserSchema = new Schema<UserDTO>({
   email: { type: String, required: true },
   name: { type: String, required: true },
   password: { type: String, required: true },
-  passwordConfirmation: { type: String, required: true },
 })
 
-const UserImp = model<User>('User', UserSchema);
+const UserImp = model<UserDTO>('User', UserSchema);
 export default UserImp;
