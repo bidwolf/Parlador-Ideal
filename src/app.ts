@@ -1,19 +1,16 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 import dotenv from "dotenv";
-import mongoose from "mongoose";
-import bcrypt from "bcrypt";
+import "./services/mongooseService";
 import router from './routes/auth';
-
+// Configurando variáveis de ambiente
 dotenv.config();
-const app = express()
+const app = express();
+const { PORT} = process.env;
 app.use(express.json());
-app.use('auth',router);
-const { PORT, MONGODB_USER, MONGODB_PASSWORD } = process.env;
-const uri = `mongodb+srv://${MONGODB_USER}:`
-  + `${MONGODB_PASSWORD
-    ? encodeURIComponent(MONGODB_PASSWORD)
-    : MONGODB_PASSWORD}`
-  + `@cluster0.4p6vxw7.mongodb.net/?retryWrites=true&w=majority`;
-app.get('/', (req: Request, res: Response) => res.send('Hello World!'))
-mongoose.connect(uri)
-app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`))
+// Rota de autenticação
+app.use('/auth', router);
+app.use(express.urlencoded({
+  extended: true
+}))
+// Conexão com o banco de dados
+  app.listen(PORT,()=> console.log(`servidor on na porta ${PORT}`));
