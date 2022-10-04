@@ -1,14 +1,18 @@
 import { Schema, model } from "mongoose";
+export interface UserLogin{
+  email: string;
+  name: string;
+}
+export interface UserDTO {
+  email: string;
+  name: string;
+  password: string;
+}
 export interface User {
   email: string;
   name: string;
   password: string;
   passwordConfirmation: string;
-}
-export interface UserDTO{
-  email:string;
-  name:string;
-  password:string;
 }
 const UserSchema = new Schema<UserDTO>({
   email: { type: String, required: true },
