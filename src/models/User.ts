@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 export interface UserLogin{
   email: string;
-  name: string;
+  password: string;
 }
 export interface UserDTO {
   email: string;

@@ -48,7 +48,8 @@ export default async function create(req: Request, res: Response): Promise<Respo
   // Criptografia da senha
   const salt = await bcrypt.genSalt(12);
   const passwordHash = await bcrypt.hash(user.password, salt);
-  const userExists = await UserImp.findOne({ email: user.email });
+  const userExists = await UserImp.findOne({ email: user.email },'-password');
+  console.log(userExists);
   // Cadastro do usuário
   try {
     if (userExists) {
@@ -64,6 +65,7 @@ export default async function create(req: Request, res: Response): Promise<Respo
       message: "User registered"
     });
   } catch (error) {
-    return res.status(422).json(error);
+    console.error(error)
+    return res.status(500).json("Something was wrong, please try again later.");
   }
 }
