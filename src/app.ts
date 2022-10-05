@@ -1,5 +1,6 @@
 import './services/mongooseService'
 
+import cookieParser from 'cookie-parser'
 import dotenv from 'dotenv'
 import express from 'express'
 
@@ -16,6 +17,8 @@ app.use(
     extended: true,
   })
 )
+app.use(cookieParser(process.env.SECRET))
+
 // Rota de autenticação
 app.use('/auth', authRouter)
 app.use('/user', userRouter)

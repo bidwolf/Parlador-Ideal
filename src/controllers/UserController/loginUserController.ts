@@ -28,7 +28,8 @@ export default async function login(
   }
   try {
     const SECRET = process.env.SECRET || ''
-    const TOKEN = jwt.sign({ id: user._id }, SECRET)
+    const TOKEN = jwt.sign({ id: user._id }, SECRET, { expiresIn: 300 })
+    res.cookie('access_token', TOKEN, { signed: true, path: '/' })
     return res
       .status(200)
       .json({ code: 200, message: 'Authentication done successfully', TOKEN })
