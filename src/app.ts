@@ -1,16 +1,19 @@
 import express from 'express';
 import dotenv from "dotenv";
 import "./services/mongooseService";
-import router from './routes/auth';
+import authRouter from './routes/auth';
+import userRouter from './routes/user';
 // Configurando variáveis de ambiente
 dotenv.config();
 const app = express();
 const { PORT} = process.env;
+// Configurando Middlewares
 app.use(express.json());
-// Rota de autenticação
-app.use('/auth', router);
 app.use(express.urlencoded({
   extended: true
 }))
+// Rota de autenticação
+app.use('/auth', authRouter);
+app.use('/user', userRouter);
 // Conexão com o banco de dados
   app.listen(PORT,()=> console.log(`servidor on na porta ${PORT}`));
