@@ -4,5 +4,5 @@ import createUserController from '../controllers/UserController/createUserContro
 import login from '../controllers/UserController/loginUserController'
 const router = Router()
 router.post('/register', createUserController)
-router.post('/user', login)
+router.post('/login', login)
 export default router

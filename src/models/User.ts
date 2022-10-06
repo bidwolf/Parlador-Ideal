@@ -23,5 +23,5 @@ const UserSchema = new Schema<UserDTO>({
   },
 })
 
-const UserModel = model<UserDTO>('User', UserSchema)
-export default UserModel
+const UserModelDTO = model<UserDTO>('User', UserSchema)
+export default UserModelDTO

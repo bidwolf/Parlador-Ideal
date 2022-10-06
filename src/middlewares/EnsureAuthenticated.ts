@@ -4,7 +4,11 @@ const validateToken = (token: string) => {
   const SECRET = process.env.SECRET || ''
   verify(token, SECRET)
 }
-export const checkToken = (req: Request, res: Response, next: NextFunction) => {
+export const ensureAuthenticated = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const authHeader = req.headers['authorization']
   const [, TOKEN] = (authHeader && authHeader.split(' ')) || ['']
   if (!TOKEN) {
