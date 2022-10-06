@@ -41,37 +41,29 @@ const createRefreshToken = async (tokenId: ObjectId, email: string) => {
   }
   console.log(refreshToken?.expiresAt)
 }
+
 export default async function login(
   req: Request,
   res: Response
 ): Promise<Response> {
-  const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET || ''
+  // Verifica se a senha está correta
   const authUser: UserLogin = req.body
-  const user = await UserModel.findOne({ email: authUser.email })
+  const user = await UserModel.findOne({ email: authUser.email }, '-password')
+  await validateLogin(authUser)
   // Verifica se existe um usuário com o email solicitado
   try {
-    if (!user) {
-      throw { code: 404, message: 'Email invalid!' }
+    const token = generateToken(user?.id, '60s')
+
+    // Salvando TOKEN de acesso e REFRESH_TOKEN
+    if (user?.refreshToken) {
+      await createRefreshToken(user.refreshToken._id, authUser.email)
     }
-  } catch (error) {
-    return res.status(404).json(error)
-  }
-  const checkPassword = await bcrypt_compare(authUser.password, user.password)
-  // Verifica se a senha está correta
-  try {
-    if (!checkPassword) {
-      throw { code: 422, message: 'Invalid password!' }
-    }
-  } catch (error) {
-    return res.status(422).json(error)
-  }
-  try {
-    const token = generateToken(user.id, '60s')
-    const refreshToken = jwt_sign(user, REFRESH_TOKEN_SECRET)
-    await user.updateOne({ $set: { refreshToken: refreshToken } })
-    return res
-      .status(200)
-      .json({ code: 200, message: 'Authentication done successfully', token })
+    return res.status(200).json({
+      code: 200,
+      message: 'Authentication done successfully',
+      token,
+      user,
+    })
   } catch (error) {
     console.error(error)
     return res.status(500).json({
