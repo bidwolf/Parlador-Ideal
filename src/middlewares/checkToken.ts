@@ -1,13 +1,12 @@
 import { NextFunction, Request, Response } from 'express'
-import jwt from 'jsonwebtoken'
+import { verify } from 'jsonwebtoken'
 const validateToken = (token: string) => {
   const SECRET = process.env.SECRET || ''
-  jwt.verify(token, SECRET)
+  verify(token, SECRET)
 }
 export const checkToken = (req: Request, res: Response, next: NextFunction) => {
-  const authHeader =
-    req.headers['authorization'] || req.signedCookies.access_token
-  const TOKEN = authHeader && authHeader.split(' ')[1]
+  const authHeader = req.headers['authorization']
+  const [, TOKEN] = (authHeader && authHeader.split(' ')) || ['']
   if (!TOKEN) {
     return res.status(401).json({ code: 401, message: 'Access Denied' })
   }

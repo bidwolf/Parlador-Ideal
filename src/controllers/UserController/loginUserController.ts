@@ -1,8 +1,9 @@
-import bcrypt from 'bcrypt'
+import { compare as bcrypt_compare } from 'bcrypt'
 import { Request, Response } from 'express'
-import jwt from 'jsonwebtoken'
+import { sign as jwt_sign } from 'jsonwebtoken'
 
 import UserImp, { UserLogin } from '../../models/User'
+
 export default async function login(
   req: Request,
   res: Response
@@ -17,7 +18,7 @@ export default async function login(
   } catch (error) {
     return res.status(404).json(error)
   }
-  const checkPassword = await bcrypt.compare(authUser.password, user.password)
+  const checkPassword = await bcrypt_compare(authUser.password, user.password)
   // Verifica se a senha está correta
   try {
     if (!checkPassword) {
@@ -28,8 +29,11 @@ export default async function login(
   }
   try {
     const SECRET = process.env.SECRET || ''
-    const TOKEN = jwt.sign({ id: user._id }, SECRET, { expiresIn: 300 })
-    res.cookie('access_token', TOKEN, { signed: true, path: '/' })
+    const TOKEN = jwt_sign({ id: user._id }, SECRET, {
+      subject: user.id,
+      expiresIn: '20s',
+    })
+    req.session.user = user
     return res
       .status(200)
       .json({ code: 200, message: 'Authentication done successfully', TOKEN })
