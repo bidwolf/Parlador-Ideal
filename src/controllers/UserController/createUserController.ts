@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt'
 import { Request, Response } from 'express'
 
-import UserImp, { User, UserDTO } from '../../models/User'
+import UserModel, { User, UserDTO } from '../../models/User'
 const emailValidate = (email: string) => {
   const isValidEmail = (email: string) => {
     const regexEmail = RegExp(/\S+@\S+\.\S+/)
@@ -41,7 +41,7 @@ const nameValidate = (name: string) => {
 const saveUser = async (user: UserDTO, passwordHash: string) => {
   const { name, email } = user
   const encryptedUser: UserDTO = { name, email, password: passwordHash }
-  await UserImp.create(encryptedUser)
+  await UserModel.create(encryptedUser)
 }
 export default async function create(
   req: Request,
@@ -59,8 +59,7 @@ export default async function create(
   // Criptografia da senha
   const salt = await bcrypt.genSalt(12)
   const passwordHash = await bcrypt.hash(user.password, salt)
-  const userExists = await UserImp.findOne({ email: user.email }, '-password')
-  console.log(userExists)
+  const userExists = await UserModel.findOne({ email: user.email }, '-password')
   // Cadastro do usuário
   try {
     if (userExists) {

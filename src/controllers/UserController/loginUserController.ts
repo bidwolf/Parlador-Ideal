@@ -2,14 +2,14 @@ import { compare as bcrypt_compare } from 'bcrypt'
 import { Request, Response } from 'express'
 import { sign as jwt_sign } from 'jsonwebtoken'
 
-import UserImp, { UserLogin } from '../../models/User'
-
+import refreshTokenModel from '../../models/refreshToken'
+import UserModel, { UserLogin } from '../../models/User'
 export default async function login(
   req: Request,
   res: Response
 ): Promise<Response> {
   const authUser: UserLogin = req.body
-  const user = await UserImp.findOne({ email: authUser.email })
+  const user = await UserModel.findOne({ email: authUser.email })
   // Verifica se existe um usuário com o email solicitado
   try {
     if (!user) {
@@ -31,8 +31,13 @@ export default async function login(
     const SECRET = process.env.SECRET || ''
     const TOKEN = jwt_sign({ id: user._id }, SECRET, {
       subject: user.id,
-      expiresIn: '20s',
+      expiresIn: '2m',
     })
+    const refreshToken = await refreshTokenModel.create({
+      user,
+      expiresAt: Date.now(),
+    })
+    await user.updateOne({ $set: { refreshToken: refreshToken } })
     req.session.user = user
     return res
       .status(200)

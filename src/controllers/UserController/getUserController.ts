@@ -1,12 +1,12 @@
 import { Request, Response } from 'express'
 
-import UserImp from '../../models/User'
+import UserModel from '../../models/User'
 export default async function getUser(
   req: Request,
   res: Response
 ): Promise<Response> {
   const id = req.params.id
-  const user = await UserImp.findById(id, '-password')
+  const user = await UserModel.findById(id, '-password')
   // Verifica se existe um usuário com o id fornecido
   try {
     if (!user) {
