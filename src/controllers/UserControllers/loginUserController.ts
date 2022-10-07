@@ -59,6 +59,8 @@ export default async function login(
         user.refreshToken._id,
         authUser.email
       )
+      console.log('batata')
+
       return res.status(200).json({
         code: 200,
         message: 'Authentication done successfully',
@@ -66,13 +68,22 @@ export default async function login(
         user,
         refreshToken,
       })
+    } else {
+      const newRefreshToken = await refreshTokenModel.create({
+        user,
+        expiresAt: Date.now(),
+        token,
+      })
+      await user?.updateOne({ $set: { refreshToken: newRefreshToken } })
+      console.log('banana')
+
+      return res.status(200).json({
+        code: 200,
+        message: 'Authentication done successfully',
+        token,
+        user,
+      })
     }
-    return res.status(200).json({
-      code: 200,
-      message: 'Authentication done successfully',
-      token,
-      user,
-    })
   } catch (error) {
     console.error(error)
     return res.status(500).json({
