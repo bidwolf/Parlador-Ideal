@@ -8,7 +8,7 @@ export interface refreshToken {
   token: string
 }
 const refreshTokenSchema = new Schema<refreshToken>({
-  expiresAt: { type: Date, expires: 0.5, required: true },
+  expiresAt: { type: Date, expires: 3600, required: true },
   user: { type: Schema.Types.ObjectId, ref: 'user', required: true },
   token: { type: String, required: true },
 })

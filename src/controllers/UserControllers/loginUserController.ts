@@ -39,7 +39,6 @@ const createRefreshToken = async (tokenId: ObjectId, email: string) => {
     })
     user?.updateOne({ $set: { refreshToken: newRefreshToken } })
   }
-  console.log(refreshToken?.expiresAt)
 }
 
 export default async function login(
@@ -53,7 +52,6 @@ export default async function login(
   // Verifica se existe um usuário com o email solicitado
   try {
     const token = generateToken(user?.id, '60s')
-
     // Salvando TOKEN de acesso e REFRESH_TOKEN
     if (user?.refreshToken) {
       await createRefreshToken(user.refreshToken._id, authUser.email)

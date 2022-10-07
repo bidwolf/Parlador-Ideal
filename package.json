@@ -8,6 +8,7 @@
     "build": "npx tsc",
     "start": "node dist/src/app.js",
     "dev": "npx nodemon src/app.ts",
+    "devFront": "npx nodemon src/front.ts",
     "lint": "eslint --fix --ext .js,.ts,.json ."
   },
   "repository": {
