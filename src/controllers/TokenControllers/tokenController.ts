@@ -1,4 +1,3 @@
-import dateFns from 'date-fns'
 import { Request, Response } from 'express'
 import jwt from 'jsonwebtoken'
 const generateToken = (userId: string, expiresIn: string) => {
@@ -9,18 +8,21 @@ const generateToken = (userId: string, expiresIn: string) => {
   })
   return token
 }
-export default function refreshToken(req: Request, res: Response) {
+export function logout(req: Request, res: Response) {
+  return res.status(200).json({ bla: 'blablabal' })
+}
+export function refreshToken(req: Request, res: Response) {
   const authHeader = req.headers['authorization']
   const [, token] = (authHeader && authHeader.split(' ')) || ['']
-  const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET || ''
   try {
-    const userId = jwt.decode(token, { json: true })
-    if (userId) {
-      // Usar dateFns
-      console.log(userId)
+    const jwToken = jwt.decode(token, { json: true })
+    if (jwToken && jwToken.sub) {
+      const userId = jwToken.sub
+      const token = generateToken(userId, '30s')
+      return res.status(200).json({ token, userId })
     }
-    return res.status(400).json({ userId: userId })
   } catch (error) {
+    console.error(error)
     return res
       .status(403)
       .json({ code: 403, message: 'Forbidden token.', error })

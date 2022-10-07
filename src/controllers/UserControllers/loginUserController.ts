@@ -28,7 +28,7 @@ const createRefreshToken = async (tokenId: ObjectId, email: string) => {
   const user = await UserModel.findOne({ email }, '-password')
   const token = jwt_sign({ id: user?._id }, REFRESH_TOKEN_SECRET, {
     subject: user?.id,
-    expiresIn: '20s',
+    expiresIn: '30s',
   })
   const refreshToken = await refreshTokenModel.findById(tokenId)
   if (!refreshToken) {
@@ -37,8 +37,9 @@ const createRefreshToken = async (tokenId: ObjectId, email: string) => {
       expiresAt: Date.now(),
       token,
     })
-    user?.updateOne({ $set: { refreshToken: newRefreshToken } })
+    return user?.updateOne({ $set: { refreshToken: newRefreshToken } })
   }
+  return refreshToken?.updateOne({ $set: { token: token } })
 }
 
 export default async function login(
@@ -54,7 +55,17 @@ export default async function login(
     const token = generateToken(user?.id, '60s')
     // Salvando TOKEN de acesso e REFRESH_TOKEN
     if (user?.refreshToken) {
-      await createRefreshToken(user.refreshToken._id, authUser.email)
+      const refreshToken = await createRefreshToken(
+        user.refreshToken._id,
+        authUser.email
+      )
+      return res.status(200).json({
+        code: 200,
+        message: 'Authentication done successfully',
+        token,
+        user,
+        refreshToken,
+      })
     }
     return res.status(200).json({
       code: 200,
