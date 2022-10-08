@@ -5,7 +5,7 @@ import { generateToken } from '../../handlers/generateToken'
 import refreshTokenModel from '../../models/refreshToken'
 export const updateTokenController = async (req: Request, res: Response) => {
   const userId = req.body.userId
-  const tokenId = req.body.tokenId
+  const tokenId = req.params
   if (!isValidObjectId(userId) || !isValidObjectId(tokenId)) {
     return res.status(400).json({ code: 400, message: 'Invalid parameters' })
   }

@@ -4,7 +4,7 @@ import refreshTokenModel from '../../models/refreshToken'
 
 export async function deleteToken(req: Request, res: Response) {
   try {
-    const tokenId = req.body.tokenId
+    const tokenId = req.params
     if (tokenId) {
       try {
         const result = await refreshTokenModel.deleteOne({ _id: tokenId })

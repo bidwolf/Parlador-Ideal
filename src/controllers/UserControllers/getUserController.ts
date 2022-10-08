@@ -8,12 +8,12 @@ export default async function getUser(
   const userSlug = req.params.id
   // Verifica se existe um usuário com o id fornecido
   try {
-    const user = await UserModelDTO.findById(userSlug, '-password')
+    const user = await UserModelDTO.findById(userSlug).select('name email')
     if (!user) {
       throw { code: 404, message: 'Page not found' }
     }
+    return res.status(200).json({ code: 200, user })
   } catch (error) {
-    return res.status(404).json(error)
+    return res.status(500).json(error)
   }
-  return res.status(200).json({ code: 200, message: 'Success user found' })
 }
