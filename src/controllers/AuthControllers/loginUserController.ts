@@ -3,16 +3,10 @@ import { Request, Response } from 'express'
 import { sign as jwt_sign } from 'jsonwebtoken'
 import { ObjectId } from 'mongoose'
 
+import { generateToken } from '../../handlers/generateToken'
 import refreshTokenModel from '../../models/refreshToken'
 import UserModel, { UserLogin } from '../../models/User'
-const generateToken = (userId: string, expiresIn: string) => {
-  const SECRET = process.env.SECRET || ''
-  const token = jwt_sign({ id: userId }, SECRET, {
-    subject: userId,
-    expiresIn: expiresIn,
-  })
-  return token
-}
+
 const validateLogin = async (authUser: UserLogin) => {
   const user = await UserModel.findOne<UserLogin>({ email: authUser.email })
   if (!user) {
@@ -48,11 +42,14 @@ export default async function login(
 ): Promise<Response> {
   // Caso o usuário esteja fazendo logout
   const authUser: UserLogin = req.body
-  const user = await UserModel.findOne({ email: authUser.email }, '-password')
+  const user = await UserModel.findOne({ email: authUser.email }).select(
+    'email -_id'
+  )
+  const SECRET = process.env.SECRET || ''
   await validateLogin(authUser)
   // Verifica se existe um usuário com o email solicitado
   try {
-    const token = generateToken(user?.id, '60s')
+    const token = generateToken(user?.id, '60s', SECRET)
     // Salvando TOKEN de acesso e REFRESH_TOKEN
     if (user?.refreshToken) {
       const refreshToken = await createRefreshToken(

@@ -1,19 +1,8 @@
 import { Request, Response } from 'express'
-import jwt from 'jsonwebtoken'
 import { isValidObjectId } from 'mongoose'
 
+import { generateToken } from '../../handlers/generateToken'
 import refreshTokenModel from '../../models/refreshToken'
-export const generateToken = (
-  userId: string,
-  expiresIn: string,
-  secret: string
-) => {
-  const token = jwt.sign({ id: userId }, secret, {
-    subject: userId,
-    expiresIn: expiresIn,
-  })
-  return token
-}
 
 export const createTokenController = async (req: Request, res: Response) => {
   const userId = req.body.userId
