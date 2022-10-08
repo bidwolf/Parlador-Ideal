@@ -41,12 +41,12 @@ const createRefreshToken = async (tokenId: ObjectId, email: string) => {
   }
   return refreshToken?.updateOne({ $set: { token: token } })
 }
-
+// deleta um refresh token salvo no cache do navegador
 export default async function login(
   req: Request,
   res: Response
 ): Promise<Response> {
-  // Verifica se a senha está correta
+  // Caso o usuário esteja fazendo logout
   const authUser: UserLogin = req.body
   const user = await UserModel.findOne({ email: authUser.email }, '-password')
   await validateLogin(authUser)
@@ -59,8 +59,6 @@ export default async function login(
         user.refreshToken._id,
         authUser.email
       )
-      console.log('batata')
-
       return res.status(200).json({
         code: 200,
         message: 'Authentication done successfully',
@@ -75,8 +73,6 @@ export default async function login(
         token,
       })
       await user?.updateOne({ $set: { refreshToken: newRefreshToken } })
-      console.log('banana')
-
       return res.status(200).json({
         code: 200,
         message: 'Authentication done successfully',

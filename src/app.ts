@@ -18,7 +18,7 @@ app.use(
 app.use(express.json())
 
 // Rota de autenticação
-app.use('/auth', authRouter)
-app.use('/user', userRouter)
+app.use('/api/auth', authRouter)
+app.use('/api/user', userRouter)
 // Conexão com o banco de dados
 app.listen(PORT, () => console.log(`servidor on na porta ${PORT}`))

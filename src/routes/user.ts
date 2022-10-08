@@ -7,7 +7,6 @@ import session from 'express-session'
 import createUserController from '../controllers/UserControllers/createUserController'
 import { deleteUser } from '../controllers/UserControllers/deleteUserController'
 import getUser from '../controllers/UserControllers/getUserController'
-import { logout } from '../controllers/UserControllers/logoutUserController'
 import { ensureAuthenticated } from '../middlewares/EnsureAuthenticated'
 import { UserLogin } from '../models/User'
 declare module 'express-session' {
@@ -22,6 +21,5 @@ router.use(session({ secret: SECRET, saveUninitialized: false, resave: true }))
 router.post('/register', createUserController)
 router.use(ensureAuthenticated)
 router.get('/:id', getUser)
-router.delete('/logout', logout)
-router.delete('/:id/deleteUser', deleteUser)
+router.delete('/:id/', deleteUser)
 export default router
