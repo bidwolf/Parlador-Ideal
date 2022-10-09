@@ -1,10 +1,9 @@
 import { User } from '../models/User'
-
+export const isValidEmail = (email: string) => {
+  const regexEmail = RegExp(/\S+@\S+\.\S+/)
+  return regexEmail.test(email)
+}
 export const emailValidate = (email: string) => {
-  const isValidEmail = (email: string) => {
-    const regexEmail = RegExp(/\S+@\S+\.\S+/)
-    return regexEmail.test(email)
-  }
   if (!email) {
     throw {
       code: 422,
