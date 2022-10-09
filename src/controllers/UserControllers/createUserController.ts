@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 
-import { saltPassword, saveUser } from '../../handlers/encriptUser'
+import { saltPassword, saveUser } from '../../handlers/encryptUser'
 import { validateInput } from '../../handlers/userValidator'
 import UserModelDTO, { User } from '../../models/User'
 
@@ -34,7 +34,7 @@ export default async function create(
     return res.status(201).json({
       code: res.statusCode,
       message: 'User registered',
-      userExists,
+      user,
     })
   } catch (error) {
     console.error(error)
