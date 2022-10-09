@@ -9,7 +9,7 @@ import updatePostController from '../controllers/PostControllers/updatePostContr
 const SECRET = process.env.SECRET || ''
 const router = Router()
 router.use(cookieParser(SECRET))
-router.post('/', createPostController)
+router.post('/:id', createPostController)
 router.get('/:id', getPostController)
 router.put('/:id', updatePostController)
 router.delete('/:id', deletePostController)

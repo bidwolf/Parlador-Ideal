@@ -7,14 +7,16 @@ export interface Post {
   user: User
   postContent: string
   likes?: number
+  createdAt?: Date
+  updatedAt?: Date
 }
-const postSchema = new Schema<Post>(
+export const postSchema = new Schema<Post>(
   {
-    user: { type: Schema.Types.ObjectId, ref: 'user', required: true },
-    postContent: { type: 'string', minlength: 0, maxlength: 280 },
-    likes: { type: 'number', default: 0 },
+    user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    postContent: { type: String, minlength: 0, maxlength: 280 },
+    likes: { type: Number, default: 0 },
   },
   { timestamps: true }
 )
-const postSchemaDTO = model<Post>('Post', postSchema)
-export default postSchemaDTO
+const PostModelDTO = model<Post>('Post', postSchema)
+export default PostModelDTO

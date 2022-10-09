@@ -1,12 +1,12 @@
 import { model, Schema } from 'mongoose'
 
-import postSchemaDTO, { Post } from './post'
+import { Post } from './post'
 import { refreshToken } from './refreshToken'
 export interface UserLogin {
   email: string
   password: string
   refreshToken?: refreshToken
-  posts?: Post[]
+  posts?: Array<Post>
 }
 export interface UserDTO extends UserLogin {
   name: string
@@ -23,7 +23,13 @@ const UserSchema = new Schema<UserDTO>({
     ref: 'refreshToken',
     required: false,
   },
-  posts: [postSchemaDTO],
+  posts: [
+    {
+      Post: { type: Schema.Types.ObjectId, required: true, ref: 'Post' },
+      postContent: { type: String, required: true },
+      likes: { type: Number, required: true },
+    },
+  ],
 })
 
 const UserModelDTO = model<UserDTO>('User', UserSchema)
