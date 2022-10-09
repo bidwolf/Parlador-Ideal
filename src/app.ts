@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 import express from 'express'
 
 import authRouter from './routes/auth'
+import postRouter from './routes/post'
 import tokenRouter from './routes/token'
 import userRouter from './routes/user'
 // Configurando variáveis de ambiente
@@ -18,9 +19,9 @@ app.use(
 )
 app.use(express.json())
 
-// Rota de autenticação
 app.use('/api/auth', authRouter)
 app.use('/api/user', userRouter)
 app.use('/api/token', tokenRouter)
+app.use('/api/post', postRouter)
 // Conexão com o banco de dados
 app.listen(PORT, () => console.log(`servidor on na porta ${PORT}`))
