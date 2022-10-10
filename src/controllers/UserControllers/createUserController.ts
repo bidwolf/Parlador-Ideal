@@ -25,7 +25,7 @@ export default async function create(
   if (userExists) {
     return res.status(422).json({
       code: 422,
-      message: 'This email already exists, please, use another email',
+      errorMessage: 'This email already exists, please, use another email',
     })
   }
 
@@ -34,10 +34,12 @@ export default async function create(
     return res.status(201).json({
       code: res.statusCode,
       message: 'User registered',
-      user,
     })
   } catch (error) {
     console.error(error)
-    return res.status(500).json('Something was wrong, please try again later.')
+    return res.status(500).json({
+      code: 500,
+      errorMessage: 'Something was wrong, please try again later.',
+    })
   }
 }
