@@ -15,8 +15,8 @@ export default async function deletePostController(
         return res.status(404).json({ code: 404, message: 'post not found' })
       }
       try {
-        const user = await UserModelDTO.findOne({ id: post?.user })
-        user?.posts?.push(post)
+        const user = await UserModelDTO.findOne({ _id: post?.user })
+        await user?.updateOne({ $pullAll: { posts: [post] } })
       } catch (error) {
         console.error(error)
       }

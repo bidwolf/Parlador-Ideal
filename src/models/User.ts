@@ -25,9 +25,7 @@ const UserSchema = new Schema<UserDTO>({
   },
   posts: [
     {
-      Post: { type: Schema.Types.ObjectId, required: true, ref: 'Post' },
-      postContent: { type: String, required: true },
-      likes: { type: Number, required: true },
+      Post: { type: Schema.Types.ObjectId, required: false, ref: 'Post' },
     },
   ],
 })
