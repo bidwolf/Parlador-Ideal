@@ -3,7 +3,7 @@ import { model, ObjectId, Schema } from 'mongoose'
 import { UserLogin as User } from './User'
 
 export interface Post {
-  _id: ObjectId
+  _id: ObjectId | string
   user: User
   postContent: string
   likes?: number
