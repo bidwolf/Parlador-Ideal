@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import { isValidObjectId } from 'mongoose'
 
-import { saltPassword } from '../../handlers/encriptUser'
+import { saltPassword } from '../../handlers/encryptUser'
 import UserModelDTO, { UserDTO } from '../../models/User'
 
 export async function updateUser(req: Request, res: Response) {
@@ -20,16 +20,16 @@ export async function updateUser(req: Request, res: Response) {
     if (userUpdated.password) {
       userUpdated.password = await saltPassword(user.password)
     }
-    const result = await user.updateOne({
+    await user.updateOne({
       $set: {
         name: userUpdated?.name,
         email: userUpdated?.email,
         password: userUpdated.password,
       },
     })
-    console.log(result)
-
-    return res.status(200).json({ code: 200, oldUser: user, userUpdated })
+    return res
+      .status(200)
+      .json({ code: 200, message: `User ${userUpdated.name} was updated` })
   } catch (error) {
     console.error(error)
     return res.status(500).json({ code: 500, message: 'Something was wrong' })
