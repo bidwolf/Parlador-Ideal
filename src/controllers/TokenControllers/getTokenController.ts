@@ -4,7 +4,7 @@ import { isValidObjectId } from 'mongoose'
 import refreshTokenModel from '../../models/refreshToken'
 
 export const getTokenController = async (req: Request, res: Response) => {
-  const tokenId = req.params.id
+  const tokenId = req.body.tokenId
   if (!isValidObjectId(tokenId)) {
     return res.status(400).json({ code: 400, message: 'Invalid parameter' })
   }

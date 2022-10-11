@@ -5,12 +5,16 @@ import createPostController from '../controllers/PostControllers/createPostContr
 import deletePostController from '../controllers/PostControllers/deletePostController'
 import getPostsByUserId from '../controllers/PostControllers/getPostController'
 import updatePostController from '../controllers/PostControllers/updatePostController'
+import {
+  ensureAuthenticated,
+  ensureAuthenticatedUser,
+} from '../middlewares/EnsureAuthenticated'
 
 const SECRET = process.env.SECRET || ''
 const router = Router()
 router.use(cookieParser(SECRET))
-router.post('/:id', createPostController)
-router.get('/:id', getPostsByUserId)
-router.put('/:id', updatePostController)
-router.delete('/:id', deletePostController)
+router.post('/:id', ensureAuthenticatedUser, createPostController)
+router.get('/:id', ensureAuthenticated, getPostsByUserId)
+router.put('/:id', ensureAuthenticatedUser, updatePostController)
+router.delete('/:id', ensureAuthenticatedUser, deletePostController)
 export default router

@@ -18,7 +18,7 @@ export default async function createPostController(
   if (postContent.length > 280) {
     return res.status(400).json({
       code: 400,
-      message: 'Your text should contain at most 280 characters',
+      errorMessage: 'Your text should contain at most 280 characters',
     })
   }
   try {
@@ -26,7 +26,7 @@ export default async function createPostController(
       'name email posts'
     )
     if (!user) {
-      return res.status(404).json({ code: 404, message: 'Not found user' })
+      return res.status(404).json({ code: 404, errorMessage: 'Not found user' })
     }
     const post = await PostModelDTO.create({
       postContent: postContent,
@@ -36,6 +36,10 @@ export default async function createPostController(
     await user?.updateOne({ $push: { posts: post } })
     res.status(200).json({ code: 200, message: 'post has been created', post })
   } catch (error) {
+    res.status(500).json({
+      code: 500,
+      errorMessage: 'Internal server error, please try again later.',
+    })
     console.error(error)
   }
 }
