@@ -1,40 +1,21 @@
-import { StyleSheet } from 'react-native'
-import { THEME } from '../../theme'
+import styled from 'styled-components/native';
+import { defaultTheme } from '../../theme';
 
-export const styles = StyleSheet.create({
-  container: {
-    alignItems:'center',
-  },
-  input:{
-    fontSize:THEME.FONT_SIZE.MD,
-    textAlign:'center',
-    color: THEME.COLORS.TEXT_SECONDARY,
-    width:256,
-    marginTop:12,
-    marginBottom:12,
-    padding:8,
-    backgroundColor:THEME.COLORS.BACKGROUND_NEUTRAL,
-    borderWidth:1,
-    borderColor:THEME.COLORS.CAPTION_300
-  },
-  button:{
-    borderColor:THEME.COLORS.CAPTION_500,
-    backgroundColor: THEME.COLORS.BACKGROUND_800,
-    borderWidth:0.5,
-    paddingVertical:8,
-    paddingHorizontal:32,
-    borderRadius:24,
-    marginTop:128,
-    marginBottom:64
-  },
-  buttonText:{
-    fontSize:THEME.FONT_SIZE.LG,
-    fontFamily:THEME.FONT_FAMILY.BOLD,
-    color:THEME.COLORS.CAPTION_300,
-  },
-  signText: {
-    color:THEME.COLORS.TEXT,
-    fontSize:THEME.FONT_SIZE.MD,
-    marginTop:24
-  }
-})
+export const Container = styled.View`
+`;
+export const InputContainer = styled.View`
+padding-top: 24px;
+padding-bottom: 24px;
+opacity: 0.5;
+align-items: center;
+`
+export const FooterLink = styled.View`
+flex-direction: row;
+`
+
+export const SignText = styled.Text`
+    color:${defaultTheme.colors.text.main};
+    font-size:${defaultTheme.font_size.MD+'px'};
+    margin-top:24px;
+    padding:8px;
+`

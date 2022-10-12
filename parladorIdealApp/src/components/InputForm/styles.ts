@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
-import styled,{css} from 'styled-components/native'
-interface Props{
+import styled, { css } from 'styled-components/native'
+import { defaultTheme } from '../../theme';
+interface Props {
   isFocused: boolean
 }
 export const Container = styled.View`
@@ -10,16 +10,19 @@ margin-Bottom:24px;
 `
 export const InputText = styled.TextInput<Props>`
 flex: 1;
-  background-color: #121214;
-  color: #7A7A80;
+  background-color: ${defaultTheme.colors.background.black900};
+  color: ${defaultTheme.colors.text.secondary};
   padding: 0 16px;
   margin-right: 48px;
   ${({ isFocused }) => isFocused && css`
     border-width: 1px;
-    border-color: #2A95B8;    
+    border-color: ${defaultTheme.colors.blue500};
   `};
 `;
-export const IconContainer = styled.View<Props>` height: 48px;
+
+export const IconContainer = styled.View<Props>` 
+
+height: 48px;
 width: 48px;
 justify-content: center;
 align-items: center;
@@ -27,6 +30,6 @@ margin-right: 4px;
 
 ${({ isFocused }) => isFocused && css`
   border-left-width: 1px;
-  border-left-color: #2A95B8;   
+  border-left-color: ${defaultTheme.colors.blue500};   
 `};
 `;

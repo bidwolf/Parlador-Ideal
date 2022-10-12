@@ -6,7 +6,7 @@ interface Props extends ViewProps{
   title:string
   subtitle?:string
 }
-export function Heading ({title , subtitle , ...rest} : Props) {
+export function Heading({title,subtitle,...rest}:Props) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>

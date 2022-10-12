@@ -1,49 +1,44 @@
-import React, { useState } from 'react';
-import { Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { styles } from './styles';
+import React from 'react'
+import { TouchableOpacity } from 'react-native'
+import { FooterLink, InputContainer, SignText } from './styles'
+import { ButtonSubmit } from '../ButtonSubmit'
+import { ControlledInput } from '../ControlledInput'
+import { useForm } from 'react-hook-form'
+type FormData = {
+  email: string
+  password: string
+}
 export function Form() {
-  const [email,setEmail]=useState('')
-  const [password,setPassword]=useState('')
-  function handleLogin (){
-  const data = {
-    email,password
-  }
-  console.log(data)
-  }
-  function handleSignIn (){
-  console.log('Indo para a rota de cadastro')
+  const { control, handleSubmit } = useForm<FormData>()
+  const handleLogin = (data: FormData) => {
+    console.log(data)
   }
   return (
-    <View style={styles.container}>
-      <TextInput
-        style = {styles.input}
-        onChangeText = {setEmail}
-        value = {email}
-        placeholder = 'Digite seu Email'
-        placeholderTextColor={'white'}
+    <InputContainer>
+      <ControlledInput
+        name="email"
+        control={control}
+        icon="mail"
+        placeholder="Insira seu email"
+        keyboardType="email-address"
       />
-      <TextInput
-        style = {styles.input}
-        onChangeText = {setPassword}
-        value = {password}
-        placeholder = 'Digite sua senha'
-        placeholderTextColor={'white'}
-        secureTextEntry = {true}
+      <ControlledInput
+        name="password"
+        control={control}
+        icon="lock"
+        placeholder="Insira sua senha"
+        secureTextEntry
       />
-      <TouchableOpacity
-        style = {styles.button}
-        onPress = {handleLogin}
-        >
-          <Text style = {styles.buttonText}>Fazer Login</Text>
-      </TouchableOpacity>
-        <Text style = {styles.signText}>
-          Não consegue fazer login?
-        </Text>
-      <TouchableOpacity onPress = {handleSignIn}>
-        <Text style = {styles.signText}>
-          Crie uma conta!
-        </Text>
-      </TouchableOpacity>
-    </View>
+      <ButtonSubmit
+        buttonText="Fazer login"
+        onPress={handleSubmit(handleLogin)}
+      />
+      <FooterLink>
+        <SignText>Não consegue logar?</SignText>
+        <TouchableOpacity activeOpacity={0.7}>
+          <SignText>Clica ae</SignText>
+        </TouchableOpacity>
+      </FooterLink>
+    </InputContainer>
   )
 }

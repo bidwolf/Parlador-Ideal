@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { THEME } from '../../theme';
+import { defaultTheme } from '../../theme';
 
 export const styles = StyleSheet.create({
   container: {
@@ -8,8 +8,8 @@ export const styles = StyleSheet.create({
     alignItems:'flex-start'
   },
   title:{
-    color:THEME.COLORS.CAPTION_300,
-    fontFamily:THEME.FONT_FAMILY.REGULAR,
-    fontSize:THEME.FONT_SIZE.LG
+    color:defaultTheme.colors.blue300,
+    fontFamily:defaultTheme.font_family.regular,
+    fontSize:defaultTheme.font_size.LG
   }
 });

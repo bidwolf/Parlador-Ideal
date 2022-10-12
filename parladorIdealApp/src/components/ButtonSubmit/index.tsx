@@ -1,22 +1,17 @@
-import React from 'react';
+import React from 'react'
+import { TouchableOpacityProps } from 'react-native'
 
-import {ButtonSubmitContainer,Container, TextButton } from './styles';
-interface Props {
-buttonText:string,
-
+import { ButtonSubmitContainer, Container, TextButton } from './styles'
+interface Props extends TouchableOpacityProps {
+  buttonText: string
 }
-export const ButtonSubmit:React.FC<Props> =({buttonText}:Props)=> {
-  const handleLogin = ()=>console.log('teste')
+export const ButtonSubmit: React.FC<Props> = ({
+  buttonText,
+  ...rest
+}: Props) => {
   return (
-    <Container>
-
-      <ButtonSubmitContainer
-        onPress = {handleLogin}
-      >
-          <TextButton>{buttonText}</TextButton>
-
+      <ButtonSubmitContainer {...rest}>
+        <TextButton>{buttonText}</TextButton>
       </ButtonSubmitContainer>
-    </Container>
-        
-  );
+  )
 }
