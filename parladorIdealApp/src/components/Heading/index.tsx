@@ -6,13 +6,13 @@ import { styles } from './styles';
 interface Props extends ViewProps{
   title:string
   subtitle?:string
-  icon ?:Icon
+  iconName:string
 }
-export function Heading({title,subtitle,icon,...rest}:Props) {
+export function Heading({title,subtitle,iconName,...rest}:Props) {
   return (
     <View style={styles.container}>
       <Icon
-              name="user-plus"
+              name={iconName}
               size={64}
               color={defaultTheme.colors.blue300}
               style={styles.icon}

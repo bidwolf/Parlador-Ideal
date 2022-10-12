@@ -10,7 +10,7 @@ import {
 import { Loading } from './src/components/Loading'
 import { ThemeProvider } from 'styled-components/native'
 import { defaultTheme } from './src/theme'
-import { SignUpPage } from './src/screens/SignUpPage'
+import { Routes } from './src/routes'
 export default function App() {
   const [fontsLoaded] = useFonts({
     Inter_400Regular,
@@ -25,7 +25,7 @@ export default function App() {
           backgroundColor="transparent"
           translucent
         />
-        {fontsLoaded ? <SignUpPage /> : <Loading />}
+        {fontsLoaded ? <Routes /> : <Loading />}
       </Background>
     </ThemeProvider>
   )
