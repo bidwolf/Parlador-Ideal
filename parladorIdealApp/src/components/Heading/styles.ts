@@ -5,11 +5,15 @@ export const styles = StyleSheet.create({
   container: {
     marginTop: 24,
     marginBottom: 24,
-    alignItems:'flex-start'
+    alignContent: 'center',
+    alignItems: 'center'
   },
   title:{
     color:defaultTheme.colors.blue300,
+    marginTop:24,
     fontFamily:defaultTheme.font_family.regular,
     fontSize:defaultTheme.font_size.LG
-  }
+  },icon: {
+    marginTop: 24,
+  },
 });

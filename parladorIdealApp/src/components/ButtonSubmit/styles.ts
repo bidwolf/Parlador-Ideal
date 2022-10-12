@@ -7,8 +7,6 @@ export const ButtonSubmitContainer = styled.TouchableOpacity`
     border-Width:0.5px;
     padding:8px 12px 12px 8px;
     border-radius:24px;
-    margin-top:128px;
-    margin-bottom:64px;
     align-items: center;
     align-content: center;
     `

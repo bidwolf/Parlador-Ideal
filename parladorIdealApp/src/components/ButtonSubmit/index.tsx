@@ -1,7 +1,7 @@
 import React from 'react'
 import { TouchableOpacityProps } from 'react-native'
 
-import { ButtonSubmitContainer, Container, TextButton } from './styles'
+import { ButtonSubmitContainer, TextButton } from './styles'
 interface Props extends TouchableOpacityProps {
   buttonText: string
 }
