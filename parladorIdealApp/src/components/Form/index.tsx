@@ -4,12 +4,20 @@ import { FooterLink, InputContainer, SignText } from './styles'
 import { ButtonSubmit } from '../ButtonSubmit'
 import { ControlledInput } from '../ControlledInput'
 import { useForm } from 'react-hook-form'
+import * as yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
 type FormData = {
   email: string
   password: string
 }
+const schema = yup.object({
+  email:yup.string().email("Email inválido").required("Informe seu email"),
+  password: yup.string().min(8,"A senha deve possuir pelo menos 8 caracteres").required("Informe uma senha")
+})
 export function Form() {
-  const { control, handleSubmit } = useForm<FormData>()
+  const { control, handleSubmit ,formState:{errors}} = useForm<FormData>({
+    resolver:yupResolver(schema)
+  })
   const handleLogin = (data: FormData) => {
     console.log(data)
   }
@@ -21,6 +29,7 @@ export function Form() {
         icon="mail"
         placeholder="Insira seu email"
         keyboardType="email-address"
+        error={errors.email}
       />
       <ControlledInput
         name="password"
@@ -28,6 +37,7 @@ export function Form() {
         icon="lock"
         placeholder="Insira sua senha"
         secureTextEntry
+        error={errors.password}
       />
       <ButtonSubmit
         buttonText="Fazer login"
@@ -36,7 +46,7 @@ export function Form() {
       <FooterLink>
         <SignText>Não consegue logar?</SignText>
         <TouchableOpacity activeOpacity={0.7}>
-          <SignText>Clica ae</SignText>
+          <SignText>Cadastre-se</SignText>
         </TouchableOpacity>
       </FooterLink>
     </InputContainer>
