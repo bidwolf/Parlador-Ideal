@@ -26,9 +26,8 @@ margin-left: 24px;
 color: ${defaultTheme.colors.blue300};
 `;
 export const PostContent= styled.Text`
-align-self: center;
 font-size:${defaultTheme.font_size.SM+'px'};
 margin-top: 24px;
-margin-left: 12px;
+margin-left: 24px;
 color : ${ defaultTheme.colors.text.main}
 `;
