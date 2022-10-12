@@ -27,8 +27,10 @@ export const defaultTheme:DefaultTheme = {
       black: 'Inter_900Black'
     },
     font_size: {
+      XSM:12,
       SM: 14,
-      MD: 16,
-      LG: 24
+      MD: 20,
+      LG: 24,
+      XL: 32
     }
   }

@@ -35,9 +35,11 @@ declare module 'styled-components' {
       black: string
     },
     font_size: {
+      XSM:number,
       SM: number,
       MD: number,
-      LG: number
+      LG: number,
+      XL: number
     }
   }
 }
