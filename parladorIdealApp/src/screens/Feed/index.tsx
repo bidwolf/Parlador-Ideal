@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { FlatList, ScrollView } from 'react-native'
 import { Background } from '../../components/Background'
-import { Contact } from '../Home/styles'
 import { ButtonContainer, Container, ProfileStatusContainer, Publications } from './styles'
 import { ButtonSubmit as NewPostButton } from '../../components/ButtonSubmit'
 import { Post, PostApiProps } from '../../components/Post'
 import { useNavigation } from '@react-navigation/native'
-import { getPosts } from '../../services/getPosts'
+import { getPosts } from '../../services/api'
 export function Feed() {
   const [posts, setPosts] = useState<{ posts: PostApiProps[] }>()
   const navigation = useNavigation()

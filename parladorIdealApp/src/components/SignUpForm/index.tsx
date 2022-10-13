@@ -5,7 +5,7 @@ import { ControlledInput } from '../ControlledInput'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { createUser } from '../../services/createUser'
+import { createUser } from '../../services/api'
 import { AxiosError } from 'axios'
 import { Alert } from 'react-native'
 export type FormUserData = {

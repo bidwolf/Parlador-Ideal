@@ -13,9 +13,8 @@ import { useForm } from 'react-hook-form'
 import { Alert, Keyboard, KeyboardAvoidingView, Text, TouchableWithoutFeedback } from 'react-native'
 import AuthContext from '../../contexts/AuthContext'
 import { UserResponse } from '../Home'
-import { createPost } from '../../services/createPost'
-import { AxiosResponse } from 'axios'
-import { defaultTheme } from '../../theme'
+import { createPost } from '../../services/api'
+
 type FormData = {
   postContent: string
 }

@@ -16,7 +16,7 @@ import {
   ButtonSubmit as NewPostButton,
 } from '../../components/ButtonSubmit'
 import AuthContext from '../../contexts/AuthContext'
-import { getPostsById } from '../../services/getPostsById'
+import { getPostsById } from '../../services/api'
 export type UserResponse = {
   token?: string
   user: {
