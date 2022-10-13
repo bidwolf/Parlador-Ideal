@@ -33,5 +33,7 @@ margin-top: 24px;
 `
 export const PostContent = styled.Text`
 font-size:${defaultTheme.font_size.SM + 'px'};
-color : ${defaultTheme.colors.text.main}
+color : ${defaultTheme.colors.text.main};
+justify-content: center;
+text-justify: newspaper;
 `

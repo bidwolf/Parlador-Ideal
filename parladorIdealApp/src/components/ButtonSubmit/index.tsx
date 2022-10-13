@@ -4,14 +4,15 @@ import { TouchableOpacityProps } from 'react-native'
 import { ButtonSubmitContainer, TextButton } from './styles'
 interface Props extends TouchableOpacityProps {
   buttonText: string
+  size?:number|string
 }
 export const ButtonSubmit: React.FC<Props> = ({
-  buttonText,
+  buttonText,size,
   ...rest
 }: Props) => {
   return (
       <ButtonSubmitContainer {...rest}>
-        <TextButton>{buttonText}</TextButton>
+        <TextButton size={size||'24'}>{buttonText}</TextButton>
       </ButtonSubmitContainer>
   )
 }

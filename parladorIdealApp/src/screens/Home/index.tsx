@@ -78,6 +78,7 @@ export function Home() {
             renderItem={({ item }) => <Post data={item} key={item.postId} />}
             horizontal
             showsHorizontalScrollIndicator={false}
+            ListEmptyComponent={<Publications>Nenhum Post Ainda</Publications>}
           />
           <ButtonContainer>
             <NewPostButton
