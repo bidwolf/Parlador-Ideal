@@ -17,7 +17,7 @@ Para o desenvolvimento do App mobile foram utilizadas as seguintes bibliotecas/f
 [![React-native](https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=express)](https://reactnative.dev/docs/getting-started)
 [![Expo](https://img.shields.io/badge/expo-000020?style=for-the-badge&logo=jsonwebtokens)](https://docs.expo.dev/development/getting-started/)
 [![Styled-Components](https://img.shields.io/badge/styledcomponents-DB7093?style=for-the-badge)](https://styled-components.com/docs/basics#getting-started)
-[![axios](https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=mongodb)](https://axios-http.com/ptbr/docs/api_intro)
+[![axios](https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=axios)](https://axios-http.com/ptbr/docs/api_intro)
 
 ## Getting Started
 
