@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Background } from '../../components/Background'
 import { ButtonSubmit } from '../../components/ButtonSubmit'
 import { ControlledInput } from '../../components/ControlledInput'
@@ -10,7 +10,12 @@ import {
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
-import { Keyboard, KeyboardAvoidingView, Text, TouchableWithoutFeedback } from 'react-native'
+import { Alert, Keyboard, KeyboardAvoidingView, Text, TouchableWithoutFeedback } from 'react-native'
+import AuthContext from '../../contexts/AuthContext'
+import { UserResponse } from '../Home'
+import { createPost } from '../../services/createPost'
+import { AxiosResponse } from 'axios'
+import { defaultTheme } from '../../theme'
 type FormData = {
   postContent: string
 }
@@ -22,6 +27,8 @@ const schema = yup.object({
     .required('Insira um conteúdo para sua publicação'),
 })
 export function CreatePostPage() {
+  const {user }= useContext(AuthContext)
+  const userParsed :UserResponse= JSON.parse(JSON.stringify(user))
   const {
     control,
     handleSubmit,
@@ -29,8 +36,11 @@ export function CreatePostPage() {
   } = useForm<FormData>({
     resolver: yupResolver(schema),
   })
-  const handleSubmitPost = (data: FormData) => {
-    console.log(data)
+  const handleSubmitPost = async(data: FormData) => {
+    
+     await createPost(userParsed.user.id,data).then((response)=>{
+      Alert.alert(response?.data.postContent?'Post Criado com sucesso!':'Erro interno','',[{text:'Ok',style:'default'}],{cancelable:true})
+    }).catch(error=>error)
   }
   
   return (

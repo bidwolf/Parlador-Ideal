@@ -14,7 +14,7 @@ import { useNavigation } from '@react-navigation/native'
 import { ButtonSubmit as NewPostButton } from '../../components/ButtonSubmit'
 import AuthContext from '../../contexts/AuthContext'
 import { getPostsById } from '../../services/getPostsById'
-type UserResponse = {
+export type UserResponse = {
   token?: string
   user: {
     id: string

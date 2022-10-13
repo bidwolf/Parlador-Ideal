@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios"
-const baseURL = 'http://192.168.1.14:3333/api/post'
+const baseURL = 'http://192.168.1.14:3333/api/post/'
 export const getPosts = async () => {
   const response: AxiosResponse = await axios
     .get(baseURL ,{
