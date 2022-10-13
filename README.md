@@ -61,3 +61,15 @@ http://localhost:3333
 
 Para executar a versão de deploy basta executar o comando 
 `npm run build`
+
+## Mobile 
+
+A construção da aplicação mobile usou como base o framework react-Native em conjunto com o expo para simulação do ambiente mobile.
+
+A ideia era criar uma interface intuitiva e com boa usabilidade pelo usuário no momento de efetuar o login ou cadastro.
+Ver suas próprias publicações na home page, e poder acessar uma página Feed onde constariam as postagens de todos os membros divididas por tópicos.
+
+### Splash page e conceito visual
+
+Pensei em usar primeiramente um tema dark pra aplicação pois acredito que seja mais visualmente agradável
+

@@ -34,7 +34,7 @@ export default async function createPostController(
     })
     post.populate({ path: 'user', model: UserModelDTO, select: 'name' })
     await user?.updateOne({ $push: { posts: post } })
-    res.status(200).json({ code: 200, message: 'post has been created', post })
+    res.status(200).json({postContent: post.postContent })
   } catch (error) {
     res.status(500).json({
       code: 500,
