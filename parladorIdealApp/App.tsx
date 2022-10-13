@@ -1,6 +1,5 @@
 import { StatusBar } from 'react-native'
 import { Background } from './src/components/Background'
-import { LoginPage } from './src/screens/LoginPage'
 import {
   useFonts,
   Inter_400Regular,
@@ -11,6 +10,8 @@ import { Loading } from './src/components/Loading'
 import { ThemeProvider } from 'styled-components/native'
 import { defaultTheme } from './src/theme'
 import { Routes } from './src/routes'
+import { NavigationContainer } from '@react-navigation/native'
+import { AuthProvider } from './src/contexts/AuthContext'
 export default function App() {
   const [fontsLoaded] = useFonts({
     Inter_400Regular,
@@ -18,15 +19,19 @@ export default function App() {
     Inter_700Bold,
   })
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <Background>
-        <StatusBar
-          barStyle="light-content"
-          backgroundColor="transparent"
-          translucent
-        />
-        {fontsLoaded ? <Routes /> : <Loading />}
-      </Background>
-    </ThemeProvider>
+    <NavigationContainer>
+      <AuthProvider>
+        <ThemeProvider theme={defaultTheme}>
+          <Background>
+            <StatusBar
+              barStyle="light-content"
+              backgroundColor="transparent"
+              translucent
+            />
+            {fontsLoaded ? <Routes /> : <Loading />}
+          </Background>
+        </ThemeProvider>
+      </AuthProvider>
+    </NavigationContainer>
   )
 }

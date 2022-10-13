@@ -8,7 +8,6 @@ import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
 } from 'react-native'
-
 export function SignUpPage() {
   return (
     <Background>

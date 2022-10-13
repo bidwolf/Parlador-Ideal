@@ -4,7 +4,7 @@ import { TextInputProps, View } from 'react-native'
 import Feather from 'react-native-vector-icons/Feather'
 import { defaultTheme } from '../../theme'
 import { ErrorInfo } from '../ErrorInfo'
-import { Container, IconContainer, InputText } from './styles'
+import { Container, ErrorContainer, IconContainer, InputText } from './styles'
 export type InputProps = TextInputProps & {
   icon: React.ComponentProps<typeof Feather>['name']
   value?: string
@@ -46,9 +46,11 @@ export function InputForm({ icon, value, error, ...rest }: InputProps) {
         value={value}
         {...rest}
       />
+      <ErrorContainer>
         {error && (
           <ErrorInfo errorMessage={error.message||''}/>
         )}
+      </ErrorContainer>
     </Container>
   )
 }

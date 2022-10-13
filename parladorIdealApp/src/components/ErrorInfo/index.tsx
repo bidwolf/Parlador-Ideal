@@ -1,5 +1,4 @@
 import React from 'react';
-import { ErrorContainer } from './styles';
 import Feather from 'react-native-vector-icons/Feather'
 import { defaultTheme } from '../../theme';
 import { Alert } from 'react-native';
@@ -28,13 +27,11 @@ export function ErrorInfo({errorMessage}:Props) {
 
   }
   return (
-    <ErrorContainer>
       <Feather
             onPress={handleErrorMessage}
             name="alert-circle"
             size={16}
             color={defaultTheme.colors.alert}
           />
-    </ErrorContainer>
   );
 }

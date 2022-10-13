@@ -1,29 +1,45 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import { TouchableOpacity } from 'react-native'
-import { FooterLink, InputContainer, SignText } from './styles'
+import {
+  ButtonSubmitContainer,
+  FooterLink,
+  InputContainer,
+  SignText,
+} from './styles'
 import { ButtonSubmit } from '../ButtonSubmit'
 import { ControlledInput } from '../ControlledInput'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useNavigation } from '@react-navigation/native'
-type FormData = {
+import AuthContext from '../../contexts/AuthContext'
+export type UserProps = {
   email: string
   password: string
 }
+
 const schema = yup.object({
-  email:yup.string().email("Email inválido").required("Informe seu email"),
-  password: yup.string().min(8,"A senha deve possuir pelo menos 8 caracteres").required("Informe uma senha")
+  email: yup.string().email('Email inválido').required('Informe seu email'),
+  password: yup
+    .string()
+    .min(8, 'A senha deve possuir pelo menos 8 caracteres')
+    .required('Informe uma senha'),
 })
 export function LoginForm() {
+  const {signed,login,user} = useContext(AuthContext)
+  console.log(signed,user)
+   async function handleLogin(data:UserProps){
+    await login(data)
+  } 
   const navigation = useNavigation()
-  const handleSignIn = ()=>navigation.navigate('signUp')
-  const { control, handleSubmit ,formState:{errors}} = useForm<FormData>({
-    resolver:yupResolver(schema)
+  const handleSignIn = () => navigation.navigate('signUp')
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<UserProps>({
+    resolver: yupResolver(schema),
   })
-  const handleLogin = (data: FormData) => {
-    console.log(data)
-  }
   return (
     <InputContainer>
       <ControlledInput
@@ -42,10 +58,12 @@ export function LoginForm() {
         secureTextEntry
         error={errors.password}
       />
-      <ButtonSubmit
-        buttonText="Fazer login"
-        onPress={handleSubmit(handleLogin)}
-      />
+      <ButtonSubmitContainer>
+        <ButtonSubmit
+          buttonText="Fazer login"
+          onPress={handleSubmit(handleLogin)}
+        />
+      </ButtonSubmitContainer>
       <FooterLink>
         <SignText>Não consegue logar?</SignText>
         <TouchableOpacity activeOpacity={0.7} onPress={handleSignIn}>

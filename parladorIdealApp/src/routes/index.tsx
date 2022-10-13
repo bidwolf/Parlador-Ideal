@@ -1,9 +1,10 @@
-import { NavigationContainer } from '@react-navigation/native'
 import { AppRoutes } from './app.routes'
+import AuthContext from '../contexts/AuthContext'
+import { useContext } from 'react'
+import { AuthRoutes } from './auth.routes'
 export function Routes() {
+  const {signed}=useContext(AuthContext)
   return (
-    <NavigationContainer>
-      <AppRoutes />
-    </NavigationContainer>
+        signed?<AppRoutes />:<AuthRoutes/>
   )
 }

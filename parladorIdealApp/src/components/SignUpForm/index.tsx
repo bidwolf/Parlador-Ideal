@@ -25,7 +25,7 @@ export function SignUpForm() {
   })
   const handleSignUp = (data: FormData) => {
     console.log(data)
-    navigation.navigate('home') 
+    navigation.navigate('home')
   }
   return (
     <InputContainer>

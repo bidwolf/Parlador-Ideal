@@ -17,9 +17,6 @@ export const defaultTheme:DefaultTheme = {
       blue400: '#32B2DC',
       blue500: '#2A95B8',
   },
-
-    footer: ['rgba(0,0,0,0)', 'rgba(0,0,0,0.9)'],
-    overlay: 'rgba(0,0,0,0.6)',
     font_family: {
       regular: 'Inter_400Regular',
       semi_bold: 'Inter_600SemiBold',

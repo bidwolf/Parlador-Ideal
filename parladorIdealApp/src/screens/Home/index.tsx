@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Background } from '../../components/Background'
 import { Heading } from '../../components/Heading'
 import { Post, PostApiProps } from '../../components/Post'
@@ -10,74 +10,64 @@ import {
   Publications,
 } from './styles'
 import { FlatList, ScrollView } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 import { ButtonSubmit as NewPostButton } from '../../components/ButtonSubmit'
-const data: PostApiProps[] = [
-  {
-    autor: 'Henrique',
-    createdAt: '2018',
-    initialLikes: 0,
-    postContent: 'askdaisdqwdqjwd',
-    postId: '1',
-  },
-  {
-    autor: 'Henrique',
-    createdAt: '2018',
-    initialLikes: 0,
-    postContent: 'askdaisdqwdqjwd',
-    postId: '2',
-  },
-  {
-    autor: 'Henrique',
-    createdAt: '2018',
-    initialLikes: 0,
-    postContent: 'askdaisdqwdqjwd',
-    postId: '3',
-  },
-  {
-    autor: 'Henrique',
-    createdAt: '2018',
-    initialLikes: 0,
-    postContent:
-      'ihsdfhsdfhuodwshufhsuoihsdfhsdfhuodihsdfhsdfhuodwsihsdfhsdfhuodwshufhsuoihsdfhsdfhuodihsdfhsdfhuodwshufhsuowshufhsuoihsdfhsdfhuodwshufhsuoihsdfhsdfhuodwshufhsuoihsdfhsdfhuodwshufhsuohufhsuowshufhsuoihsdfhsdfhuodwshufhsuoihsdfhsdfhuodwshufhsuoihsdfhsdfhuodwshufhsuo',
-    postId: '4',
-  },
-  {
-    autor: 'Henrique',
-    createdAt: '2018',
-    initialLikes: 0,
-    postContent: 'lorem',
-    postId: '5',
-  },
-]
+import AuthContext from '../../contexts/AuthContext'
+import { getPostsById } from '../../services/getPostsById'
+type UserResponse = {
+  token?: string
+  user: {
+    id: string
+    userName: string
+    userEmail: string
+  }
+}
 export function Home() {
+  const [posts, setPosts] = useState<{ posts: PostApiProps[] }>()
+  const { user } = useContext(AuthContext)
+  const userParsed: UserResponse = JSON.parse(JSON.stringify(user))
+  useEffect(() => {
+    getPostsById(userParsed.user.id).then((response) => {
+      setPosts(response.data)
+    })
+  }, [])
+  const navigation = useNavigation()
+  const handleCreatePost = () => navigation.navigate('createPost')
+  const handleFeed = () => navigation.navigate('feed')
   return (
     <Background>
       <Container>
         <ScrollView decelerationRate={0.5} showsVerticalScrollIndicator={false}>
-          <Heading iconName="home" title="Bem vindo Henrique!" />
+          <Heading
+            iconName="home"
+            title={`Bem vindo ${userParsed.user.userName}`}
+          />
           <ProfileStatusContainer>
-            <Contact>Email: Henrique@gmail.com</Contact>
+            <Contact>{userParsed.user.userEmail}</Contact>
             <Publications>Suas Publicações</Publications>
           </ProfileStatusContainer>
 
           <FlatList
-            data={data}
+            data={posts?.posts}
             keyExtractor={(item) => item.postId}
             renderItem={({ item }) => <Post data={item} />}
             horizontal
             showsHorizontalScrollIndicator={false}
           />
           <ButtonContainer>
-            <NewPostButton buttonText="Nova Publicação"></NewPostButton>
+            <NewPostButton
+              buttonText="Nova Publicação"
+              onPress={handleCreatePost}
+            ></NewPostButton>
           </ButtonContainer>
           <Publications>Sua rede de Contatos</Publications>
-          <FlatList
-            data={data}
-            keyExtractor={(item) => item.postId}
-            renderItem={({ item }) => <Post data={item} />}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-          />
+
+          <ButtonContainer>
+            <NewPostButton
+              buttonText="Ver todas as publicações"
+              onPress={handleFeed}
+            ></NewPostButton>
+          </ButtonContainer>
         </ScrollView>
       </Container>
     </Background>

@@ -5,6 +5,7 @@ export declare global{
       login:undefined
       signUp:undefined
       createPost: undefined
+      feed:undefined
     }
   }
 }

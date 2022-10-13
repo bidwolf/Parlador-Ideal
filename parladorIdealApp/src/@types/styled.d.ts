@@ -25,8 +25,6 @@ declare module 'styled-components' {
         secondary: string,
       },
     },
-    footer: string[],
-    overlay: string,
 
     font_family: {
       regular: string,

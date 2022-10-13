@@ -9,6 +9,14 @@ margin-left: 16px;
 margin-Bottom:24px;
 align-content: center;
 `
+
+export const ErrorContainer = styled.SafeAreaView`
+height: 48px;
+width: 48px;
+align-self: center;
+align-items: center;
+justify-content: center;
+`
 export const InputText = styled.TextInput<Props>`
 flex: 1;
   background-color: ${defaultTheme.colors.background.black900};
@@ -19,13 +27,13 @@ flex: 1;
     border-color: ${defaultTheme.colors.blue500};
   `};
 `;
-
 export const IconContainer = styled.View<Props>` 
 
 height: 48px;
 width: 48px;
 justify-content: center;
 align-items: center;
+align-self: center;
 margin-right: 4px;
 
 ${({ isFocused }) => isFocused && css`
@@ -33,11 +41,3 @@ border-left-width: 1px;
 border-left-color: ${defaultTheme.colors.blue500};   
 `};
 `;
-export const ErrorContainer = styled.View<Props>`
-height: 48px;
-width: 48px;
-align-self: center;
-align-items: center;
-justify-content: center;
-
-`
