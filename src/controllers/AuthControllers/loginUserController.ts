@@ -14,21 +14,29 @@ export default async function login(
   // Caso o usuário esteja fazendo logout
   const authUser: UserLogin = req.body
   const user = await UserModel.findOne({ email: authUser.email }).select(
-    'email refreshToken'
+    'email refreshToken name'
   )
   const SECRET = process.env.SECRET || ''
-  await validateLogin(authUser)
   // Verifica se existe um usuário com o email solicitado
+  try {
+    await validateLogin(authUser)
+  } catch (error) {
+    return res.status(401).json({ error })
+  }
   try {
     const token = generateToken(user?.id, '60s', SECRET)
     // Criando token de acesso e salvando REFRESH_TOKEN no banco de dados
     if (user?.refreshToken) {
       await createRefreshToken(user.refreshToken._id, authUser.email)
       return res.status(200).json({
-        code: 200,
-        message: 'Authentication done successfully',
         token,
-        user,
+        user: {
+          id: user._id,
+          userEmail: user.email,
+          userName: user.name,
+
+
+        }
       })
     } else {
       const newRefreshToken = await refreshTokenModel.create({
@@ -38,10 +46,12 @@ export default async function login(
       })
       await user?.updateOne({ $set: { refreshToken: newRefreshToken } })
       return res.status(200).json({
-        code: 200,
-        message: 'Authentication done successfully',
         token,
-        user,
+        user: {
+          userEmail: user?.email,
+          userName: user?.name
+
+        }
       })
     }
   } catch (error) {

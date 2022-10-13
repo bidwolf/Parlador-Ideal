@@ -8,7 +8,6 @@ import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
 } from 'react-native'
-import axios from 'axios'
 const handleSign = () => console.log('Indo pra página de cadastro')
 export function LoginPage() {
 

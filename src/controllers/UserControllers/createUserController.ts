@@ -39,7 +39,7 @@ export default async function create(
     console.error(error)
     return res.status(500).json({
       code: 500,
-      errorMessage: 'Something was wrong, please try again later.',
+      errorMessage: 'Internal server error, please try again later.',
     })
   }
 }

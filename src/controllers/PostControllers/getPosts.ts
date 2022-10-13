@@ -3,13 +3,9 @@ import { isValidObjectId } from 'mongoose'
 
 import PostModelDTO from '../../models/post'
 
-export default async function getPostsByUserId(req: Request, res: Response) {
-  const userId = req.params.id
-  if (!userId || !isValidObjectId(userId)) {
-    return res.status(400).json({ code: 400, message: 'Invalid user id' })
-  }
+export default async function getAllPosts(req: Request, res: Response) {
   try {
-    const post = await PostModelDTO.find({ user: userId }).select(
+    const post = await PostModelDTO.find().select(
       'postContent likes createdAt user -_id'
     ).populate('user', 'name')
     if (!post) {

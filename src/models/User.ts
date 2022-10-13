@@ -3,6 +3,7 @@ import { model, Schema } from 'mongoose'
 import { Post } from './post'
 import { refreshToken } from './refreshToken'
 export interface UserLogin {
+  name: string
   email: string
   password: string
   refreshToken?: refreshToken

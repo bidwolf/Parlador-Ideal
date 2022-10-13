@@ -17,7 +17,7 @@ export async function updateUser(req: Request, res: Response) {
   if (!authenticated.status) {
     return res
       .status(401)
-      .json({ code: 401, errorMessage: 'Unauthenticated user' })
+      .json({ code: 401, errorMessage: 'Access denied,unauthenticated user' })
   }
   if (userId != authenticated.userId) {
     return res

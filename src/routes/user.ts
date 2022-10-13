@@ -8,6 +8,7 @@ import createUserController from '../controllers/UserControllers/createUserContr
 import { deleteUser } from '../controllers/UserControllers/deleteUserController'
 import getUser from '../controllers/UserControllers/getUserController'
 import { updateUser } from '../controllers/UserControllers/updateUserController'
+import { ensureAuthenticatedUser } from '../middlewares/EnsureAuthenticated'
 import { UserLogin } from '../models/User'
 declare module 'express-session' {
   interface SessionData {
@@ -21,6 +22,6 @@ router.use(session({ secret: SECRET, saveUninitialized: false, resave: true }))
 // USUÁRIOS REST API
 router.post('/register', createUserController)
 router.get('/:id', getUser)
-router.delete('/:id', deleteUser)
-router.put('/:id', updateUser)
+router.delete('/:id', ensureAuthenticatedUser, deleteUser)
+router.put('/:id', ensureAuthenticatedUser, updateUser)
 export default router

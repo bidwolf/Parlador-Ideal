@@ -4,17 +4,19 @@ import { Router } from 'express'
 import createPostController from '../controllers/PostControllers/createPostController'
 import deletePostController from '../controllers/PostControllers/deletePostController'
 import getPostsByUserId from '../controllers/PostControllers/getPostController'
+import getAllPosts from '../controllers/PostControllers/getPosts'
 import updatePostController from '../controllers/PostControllers/updatePostController'
 import {
-  ensureAuthenticated,
-  ensureAuthenticatedUser,
+  ensureAuthenticated as requireAuthentication,
+  ensureAuthenticatedUser as requireUserAuthenticated,
 } from '../middlewares/EnsureAuthenticated'
 
 const SECRET = process.env.SECRET || ''
 const router = Router()
+router.get('/all',  getAllPosts)
 router.use(cookieParser(SECRET))
-router.post('/:id', ensureAuthenticatedUser, createPostController)
-router.get('/:id', ensureAuthenticated, getPostsByUserId)
-router.put('/:id', ensureAuthenticatedUser, updatePostController)
-router.delete('/:id', ensureAuthenticatedUser, deletePostController)
+router.post('/:id',  createPostController)
+router.get('/:id',  getPostsByUserId)
+router.put('/:id',  updatePostController)
+router.delete('/:id',  deletePostController)
 export default router
