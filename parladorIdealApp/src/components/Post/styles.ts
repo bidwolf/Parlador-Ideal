@@ -13,21 +13,25 @@ padding-bottom: 12px;
 export const LikesCounter = styled.Text`
 margin-left: 12px;
 color: ${defaultTheme.colors.alert};
-font-size: ${defaultTheme.font_size.XSM+'px'};
+font-size: ${defaultTheme.font_size.XSM + 'px'};
 `
 export const PostData = styled.Text`
 margin-right: 12px;
 color: ${defaultTheme.colors.success};
-font-size: ${defaultTheme.font_size.XSM+'px'};
+font-size: ${defaultTheme.font_size.XSM + 'px'};
 `
 export const Author = styled.Text`
-font-size:${defaultTheme.font_size.SM+'px'};
+font-size:${defaultTheme.font_size.SM + 'px'};
 margin-left: 24px;
 color: ${defaultTheme.colors.blue300};
-`;
-export const PostContent= styled.Text`
-font-size:${defaultTheme.font_size.SM+'px'};
+`
+export const PostContainer = styled.SafeAreaView`
+flex: 1;
+opacity: 0.8;
+overflow-y: scroll;
 margin-top: 24px;
-margin-left: 24px;
-color : ${ defaultTheme.colors.text.main}
-`;
+`
+export const PostContent = styled.Text`
+font-size:${defaultTheme.font_size.SM + 'px'};
+color : ${defaultTheme.colors.text.main}
+`

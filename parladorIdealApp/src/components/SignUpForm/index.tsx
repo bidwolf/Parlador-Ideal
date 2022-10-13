@@ -19,11 +19,13 @@ const schema = yup.object({
   password_confirmation:yup.string().oneOf([yup.ref('password'),null],'A senha de confirmação não corresponde')
 })
 export function SignUpForm() {
+  const navigation = useNavigation()
   const { control, handleSubmit ,formState:{errors}} = useForm<FormData>({
     resolver:yupResolver(schema)
   })
-  const handleLogin = (data: FormData) => {
+  const handleSignUp = (data: FormData) => {
     console.log(data)
+    navigation.navigate('home') 
   }
   return (
     <InputContainer>
@@ -61,7 +63,7 @@ export function SignUpForm() {
       />
       <ButtonSubmit
         buttonText="Cadastrar"
-        onPress={handleSubmit(handleLogin)}
+        onPress={handleSubmit(handleSignUp)}
       />
     </InputContainer>
   )

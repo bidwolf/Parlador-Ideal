@@ -3,7 +3,8 @@ import { FieldError } from 'react-hook-form/dist/types/errors'
 import { TextInputProps, View } from 'react-native'
 import Feather from 'react-native-vector-icons/Feather'
 import { defaultTheme } from '../../theme'
-import { Container, IconContainer, InputText, ErrorContainer } from './styles'
+import { ErrorInfo } from '../ErrorInfo'
+import { Container, IconContainer, InputText } from './styles'
 export type InputProps = TextInputProps & {
   icon: React.ComponentProps<typeof Feather>['name']
   value?: string
@@ -45,15 +46,9 @@ export function InputForm({ icon, value, error, ...rest }: InputProps) {
         value={value}
         {...rest}
       />
-      <ErrorContainer>
         {error && (
-          <Feather
-            name="alert-circle"
-            size={16}
-            color={defaultTheme.colors.alert}
-          />
+          <ErrorInfo errorMessage={error.message||''}/>
         )}
-      </ErrorContainer>
     </Container>
   )
 }
