@@ -11,7 +11,10 @@ import {
 } from './styles'
 import { FlatList, RefreshControl, ScrollView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { ButtonSubmit, ButtonSubmit as NewPostButton } from '../../components/ButtonSubmit'
+import {
+  ButtonSubmit,
+  ButtonSubmit as NewPostButton,
+} from '../../components/ButtonSubmit'
 import AuthContext from '../../contexts/AuthContext'
 import { getPostsById } from '../../services/getPostsById'
 export type UserResponse = {
@@ -22,17 +25,17 @@ export type UserResponse = {
     userEmail: string
   }
 }
-const wait = (timeout:number)=>{
-  return new Promise(resolve=>setTimeout(resolve,timeout))
+const wait = (timeout: number) => {
+  return new Promise((resolve) => setTimeout(resolve, timeout))
 }
 export function Home() {
   const [posts, setPosts] = useState<{ posts: PostApiProps[] }>()
-  const { user,logout } = useContext(AuthContext)
-  const [refreshing,setRefreshing]= useState(false)
-  const onRefresh = React.useCallback(()=>{
+  const { user, logout } = useContext(AuthContext)
+  const [refreshing, setRefreshing] = useState(false)
+  const onRefresh = React.useCallback(() => {
     setRefreshing(true)
-    wait(2000).then(()=>setRefreshing(false))
-  },[])
+    wait(2000).then(() => setRefreshing(false))
+  }, [])
   const userParsed: UserResponse = JSON.parse(JSON.stringify(user))
   useEffect(() => {
     getPostsById(userParsed.user.id).then((response) => {
@@ -45,23 +48,34 @@ export function Home() {
   return (
     <Background>
       <Container>
-        <ScrollView decelerationRate={0.5} showsVerticalScrollIndicator={false} refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>
-        }>
+        <ScrollView
+          decelerationRate={0.5}
+          showsVerticalScrollIndicator={false}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        >
           <Heading
             iconName="home"
             title={`Bem vindo ${userParsed.user.userName}`}
           />
           <ProfileStatusContainer>
-            <Contact>{userParsed.user.userEmail}</Contact>
+            <Contact> Email : {userParsed.user.userEmail}</Contact>
+            <ButtonContainer>
+              <ButtonSubmit
+                buttonText="Logout"
+                onPress={() => {
+                  logout()
+                }}
+              />
+            </ButtonContainer>
             <Publications>Suas Publicações</Publications>
-            <ButtonSubmit buttonText='Logout' onPress={()=>{ logout()}}/>
           </ProfileStatusContainer>
 
           <FlatList
             data={posts?.posts}
             keyExtractor={(item) => item.postId}
-            renderItem={({ item }) => <Post data={item} />}
+            renderItem={({ item }) => <Post data={item} key={item.postId} />}
             horizontal
             showsHorizontalScrollIndicator={false}
           />

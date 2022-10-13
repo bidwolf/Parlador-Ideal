@@ -28,7 +28,7 @@ export function Feed() {
           <FlatList
             data={posts?.posts}
             keyExtractor={(item) => item.postId}
-            renderItem={({ item }) => <Post data={item} />}
+            renderItem={({ item }) => <Post data={item} key={item.postId}/>}
             horizontal
             showsHorizontalScrollIndicator={false}
           />

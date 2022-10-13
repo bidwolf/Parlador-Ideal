@@ -24,6 +24,7 @@ export const Contact = styled.Text`
 color: greenyellow;
 font-size: ${defaultTheme.font_size.SM+'px'};
 font-family: ${defaultTheme.font_family.semi_bold};
+text-align: center;
 
 `
 export const ButtonContainer = styled.SafeAreaView`
