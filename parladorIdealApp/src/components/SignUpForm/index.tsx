@@ -5,27 +5,56 @@ import { ControlledInput } from '../ControlledInput'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useNavigation } from '@react-navigation/native'
-type FormData = {
+import { createUser } from '../../services/createUser'
+import { AxiosError } from 'axios'
+import { Alert } from 'react-native'
+export type FormUserData = {
   name: string
   email: string
   password: string
-  password_confirmation: string
+  passwordConfirmation: string
 }
 const schema = yup.object({
   name:yup.string().min(2,"Muito curto").max(30,"Muito longo").required("Insira um nome"),
   email:yup.string().email("Email inválido").required("Informe seu email"),
   password: yup.string().min(8,"A senha deve possuir pelo menos 8 caracteres").required("Informe uma senha"),
-  password_confirmation:yup.string().oneOf([yup.ref('password'),null],'A senha de confirmação não corresponde')
+  passwordConfirmation:yup.string().oneOf([yup.ref('password'),null],'A senha de confirmação não corresponde')
 })
 export function SignUpForm() {
-  const navigation = useNavigation()
-  const { control, handleSubmit ,formState:{errors}} = useForm<FormData>({
+  const { control, handleSubmit ,formState:{errors}} = useForm<FormUserData>({
     resolver:yupResolver(schema)
   })
-  const handleSignUp = (data: FormData) => {
-    console.log(data)
-    navigation.navigate('home')
+  const handleSignUp = async(data: FormUserData) => {
+    console.log(data);
+    
+    await createUser(data).then((response)=>{
+      Alert.alert(
+        'Usuário cadastrado com sucesso',
+        response.data.code,
+        [
+          {
+            text: 'Ok',
+            style: 'default',
+          },
+        ],
+        {
+          cancelable: true,
+        }
+      )
+    }).catch((err: AxiosError) =>
+    Alert.alert(
+      'Não foi possível cadastrar o usuário',
+      err.message,
+      [
+        {
+          text: 'Ok',
+          style: 'default',
+        },
+      ],
+      {
+        cancelable: true,
+      }
+    ))
   }
   return (
     <InputContainer>
@@ -54,12 +83,12 @@ export function SignUpForm() {
         error={errors.password}
       />
       <ControlledInput
-        name="password_confirmation"
+        name="passwordConfirmation"
         control={control}
         icon="lock"
         placeholder="Confirme sua senha"
         secureTextEntry
-        error={errors.password_confirmation}
+        error={errors.passwordConfirmation}
       />
       <ButtonSubmit
         buttonText="Cadastrar"
