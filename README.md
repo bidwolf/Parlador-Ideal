@@ -14,9 +14,9 @@ Para o desenvolvimento da API foram utilizadas as seguintes bibliotecas/framewor
 
 Para o desenvolvimento do App mobile foram utilizadas as seguintes bibliotecas/frameworks:
 
-[![React-native](https://img.shields.io/badge/react-61DAFB?style=for-the-badge)](https://reactnative.dev/docs/getting-started)
-[![Expo](https://img.shields.io/badge/expo-000020?style=for-the-badge)](https://docs.expo.dev/development/getting-started/)
-[![Styled-Components](https://img.shields.io/badge/styledcomponents-DB7093?style=for-the-badge)](https://styled-components.com/docs/basics#getting-started)
+[![React-native](https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=reactjs)](https://reactnative.dev/docs/getting-started)
+[![Expo](https://img.shields.io/badge/expo-000020?style=for-the-badge&logo=expo)](https://docs.expo.dev/development/getting-started/)
+[![Styled-Components](https://img.shields.io/badge/styledcomponents-DB7093?style=for-the-badge&logo=syledcomponents)](https://styled-components.com/docs/basics#getting-started)
 [![axios](https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=axios)](https://axios-http.com/ptbr/docs/api_intro)
 
 ## Getting Started
